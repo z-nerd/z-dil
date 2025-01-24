@@ -1,0 +1,11 @@
+export type NodeType =
+  | "Program"
+  | "ExpressionStatement"
+  | "BinaryExpression"
+  | "AssignmentExpression"
+  | "ArrowFunctionExpression"
+  | "NumericLiteral"
+  | "VariableDeclaration"
+  | "VariableDeclarator"
+  | "FunctionDeclaration"
+  | "CallExpression"
