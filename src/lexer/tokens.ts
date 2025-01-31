@@ -1,128 +1,243 @@
+export enum TokenType {
+  COMMENT = "COMMENT",
+  BACKTICK = "BACKTICK",
+  DOUBLE_QUOTE = "DOUBLE_QUOTE",
+  SINGLE_QUOTE = "SINGLE_QUOTE",
+  NUMBER = "NUMBER",
+
+  ARROW_FUNCTION = "ARROW_FUNCTION",
+
+  EQAL = "EQAL",
+  NOT_EQAL = "NOT_EQAL",
+  LESS_THAN_EQAL = "LESS_THAN_EQAL",
+  GREATER_THAN_EQAL = "GREATER_THAN_EQAL",
+
+  ASSIGN = "ASSIGN",
+
+  OPEN_PARENTHESIS = "OPEN_PARENTHESIS",
+  CLOSE_PARENTHESIS = "CLOSE_PARENTHESIS",
+  OPEN_BRACE = "OPEN_BRACE",
+  CLOSE_BRACE = "CLOSE_BRACE",
+  OPEN_BRACKET = "OPEN_BRACKET",
+  CLOSE_BRACKET = "CLOSE_BRACKET",
+  DOT = "DOT",
+  MULTIPLY = "MULTIPLY",
+  DIVIDE = "DIVIDE",
+  REMAINDER = "REMAINDER",
+  PLUS = "PLUS",
+  MINUS = "MINUS",
+  LESS_THAN = "LESS_THAN",
+  GREATER_THAN = "GREATER_THAN",
+  SEMICOLON = "SEMICOLON",
+  COLON = "COLON",
+  COMMA = "COMMA",
+  BAR = "BAR",
+
+  I8 = "i8",
+  I16 = "I16",
+  I32 = "I32",
+  I64 = "I64",
+  I128 = "I128",
+  ISIZE = "ISIZE",
+
+  U8 = "U8",
+  U16 = "U16",
+  U32 = "U32",
+  U64 = "U64",
+  U128 = "U128",
+  USIZE = "USIZE",
+
+  F32 = "F32",
+  F64 = "F64",
+
+  CHAR = "CHAR",
+  STRING = "STRING",
+
+  BOOL = "BOOL",
+  FALSE = "FALSE",
+  TRUE = "TRUE",
+
+  NAN = "NAN",
+  INFINITY = "INFINITY",
+
+  AS = "AS",
+
+  LET = "LET",
+  CONST = "CONST",
+
+  IF = "IF",
+  ELSE = "ELSE",
+  MATCH = "MATCH",
+
+  FOR = "FOR",
+  OF = "OF",
+  IN = "IN",
+
+  FN = "FN",
+  RETURN = "RETURN",
+
+  ENUM = "ENUM",
+  STRUCT = "STRUCT",
+  SELF = "SELF",
+
+  ASYNC = "ASYNC",
+  AWAIT = "AWAIT",
+
+  TRY = "TRY",
+  CATCH = "CATCH",
+
+  IDENTIFIER = "IDENTIFIER",
+
+  UNKNOWN = "UNKNOWN",
+
+  EOL = "EOL",
+  EOF = "EOF",
+}
+
+export const TOKEN_CHARS: Record<string, TokenType> = {
+  "(": TokenType.OPEN_PARENTHESIS,
+  ")": TokenType.CLOSE_PARENTHESIS,
+  "{": TokenType.OPEN_BRACE,
+  "}": TokenType.CLOSE_BRACE,
+  "[": TokenType.OPEN_BRACKET,
+  "]": TokenType.CLOSE_BRACKET,
+  ".": TokenType.DOT,
+  "*": TokenType.MULTIPLY,
+  "/": TokenType.DIVIDE,
+  "%": TokenType.REMAINDER,
+  "+": TokenType.PLUS,
+  "-": TokenType.MINUS,
+  "<": TokenType.LESS_THAN,
+  ">": TokenType.GREATER_THAN,
+  ";": TokenType.SEMICOLON,
+  ":": TokenType.COLON,
+  ",": TokenType.COMMA,
+  "|": TokenType.BAR,
+}
+
+export const KEYWORDS: Record<string, TokenType> = {
+  i8: TokenType.I8,
+  i16: TokenType.I16,
+  i32: TokenType.I32,
+  i64: TokenType.I64,
+  i128: TokenType.I128,
+  isize: TokenType.ISIZE,
+
+  u8: TokenType.U8,
+  u16: TokenType.U16,
+  u32: TokenType.U32,
+  u64: TokenType.U64,
+  u128: TokenType.U128,
+  usize: TokenType.USIZE,
+
+  f32: TokenType.F32,
+  f64: TokenType.F64,
+
+  char: TokenType.CHAR,
+  string: TokenType.STRING,
+
+  bool: TokenType.BOOL,
+  false: TokenType.FALSE,
+  true: TokenType.TRUE,
+
+  NaN: TokenType.NAN,
+  Infinity: TokenType.INFINITY,
+
+  as: TokenType.AS,
+
+  let: TokenType.LET,
+  const: TokenType.CONST,
+
+  if: TokenType.IF,
+  else: TokenType.ELSE,
+  match: TokenType.MATCH,
+
+  for: TokenType.FOR,
+  of: TokenType.OF,
+  in: TokenType.IN,
+
+  fn: TokenType.FN,
+  return: TokenType.RETURN,
+
+  enum: TokenType.ENUM,
+  struct: TokenType.STRUCT,
+  self: TokenType.SELF,
+
+  async: TokenType.ASYNC,
+  await: TokenType.AWAIT,
+
+  try: TokenType.TRY,
+  catch: TokenType.CATCH,
+}
+
 export type Token =
-  | { type: "NUMBER"; value: number }
-  | { type: "IDENTIFIER"; value: string }
-  | { type: "COMMENT"; value: string }
-  | { type: "BACKTICK"; value: string }
-  | { type: "DOUBLE_QUOTE"; value: string }
-  | { type: "SINGLE_QUOTE"; value: string }
-  | { type: "TYPE_ANNOTATION" }
-  | { type: "RETURN"; value: string }
-  | { type: "OPEN_PARENTHESIS" }
-  | { type: "CLOSE_PARENTHESIS" }
-  | { type: "OPEN_BRACE" }
-  | { type: "CLOSE_BRACE" }
-  | { type: "SEMICOLON" }
-  | { type: "COMMA" }
-  | { type: "PLUS" }
-  | { type: "MINUS" }
-  | { type: "MULTIPLY" }
-  | { type: "DIVIDE" }
-  | { type: "ASSIGN" }
-  | { type: "LET" }
-  | { type: "ARROW_FUNCTION" }
-  | { type: "EQAL" }
-  | { type: "NOT_EQAL" }
-  | { type: "GREATER_THAN" }
-  | { type: "GREATER_THAN_EQAL" }
-  | { type: "LESS_THAN" }
-  | { type: "LESS_THAN_EQAL" }
-  | { type: "UNKNOWN"; value: string }
-  | { type: "EOL" }
-  | { type: "EOF" }
-
-// export enum TokenType {
-//   NUMBER = "NUMBER",
-//   IDENTIFIER = "IDENTIFIER",
-//   KEYWORD = "KEYWORD",
-//   OPERATOR = "OPERATOR",
-//   PARENTHESIS_OPEN = "PARENTHESIS_OPEN", // (
-//   PARENTHESIS_CLOSE = "PARENTHESIS_CLOSE", // )
-//   BRACE_OPEN = "BRACE_OPEN", // {
-//   BRACE_CLOSE = "BRACE_CLOSE", // }
-//
-//   DOUBLE_QUOTE = "DOUBLE_QUOTE", // String literal
-//   SINGLE_QUOTE = "SINGLE_QUOTE", // Character literal
-//   BACKTICK = "BACKTICK", // BACKTICK literal (note need dynamic logic with fmt lib for template)
-//
-//   WHITESPACE = "WHITESPACE",
-//   SEMICOLON = "SEMICOLON",
-//   COMMA = "COMMA", // Comma
-//   COMMENT = "COMMENT", // Comment
-//   UNKNOWN = "UNKNOWN",
-//
-//   TYPE_ANNOTATION = "TYPE_ANNOTATION", // Type annotation
-//   ARROW_FUNCTION = "ARROW_FUNCTION", // Arrow function
-//
-//   RETURN = "RETURN", // RETUEN
-//
-//   EOL = "EOL", // End of line
-//   EOF = "EOF", // End of file
-// }
-
-// export const operators: Set<string> = new Set([
-//   "=",
-//   "+",
-//   "-",
-//   "*",
-//   "/",
-//   ">",
-//   "<",
-//   ">=",
-//   "<=",
-//   "==",
-//   "!=",
-// ])
-//
-// export const keywords: Set<string> = new Set([
-//   "i8",
-//   "i16",
-//   "i32",
-//   "i64",
-//   "i128",
-//   "isize",
-//
-//   "u8",
-//   "u16",
-//   "u32",
-//   "u64",
-//   "u128",
-//   "usize",
-//
-//   "f32",
-//   "f64",
-//
-//   "bool",
-//   "true",
-//   "false",
-//
-//   "NaN",
-//   "Infinity",
-//
-//   "char",
-//   "string",
-//
-//   "as",
-//
-//   "let",
-//   "const",
-//
-//   "fn",
-//   "return",
-//   "async",
-//   "await",
-//
-//   "struct",
-//   "enum",
-//   "this",
-//
-//   "if",
-//   "else",
-//   "match",
-//
-//   "for",
-//   "of",
-//   "in",
-//
-//   "try",
-//   "catch",
-// ])
+  | { type: TokenType.COMMENT; value: string }
+  | { type: TokenType.BACKTICK; value: string }
+  | { type: TokenType.DOUBLE_QUOTE; value: string }
+  | { type: TokenType.SINGLE_QUOTE; value: string }
+  | { type: TokenType.NUMBER; value: number }
+  | { type: TokenType.ARROW_FUNCTION }
+  | { type: TokenType.EQAL }
+  | { type: TokenType.NOT_EQAL }
+  | { type: TokenType.LESS_THAN_EQAL }
+  | { type: TokenType.GREATER_THAN_EQAL }
+  | { type: TokenType.ASSIGN }
+  | { type: TokenType.OPEN_PARENTHESIS }
+  | { type: TokenType.CLOSE_PARENTHESIS }
+  | { type: TokenType.OPEN_BRACE }
+  | { type: TokenType.CLOSE_BRACE }
+  | { type: TokenType.OPEN_BRACKET }
+  | { type: TokenType.CLOSE_BRACKET }
+  | { type: TokenType.DOT }
+  | { type: TokenType.MULTIPLY }
+  | { type: TokenType.DIVIDE }
+  | { type: TokenType.REMAINDER }
+  | { type: TokenType.PLUS }
+  | { type: TokenType.MINUS }
+  | { type: TokenType.LESS_THAN }
+  | { type: TokenType.GREATER_THAN }
+  | { type: TokenType.SEMICOLON }
+  | { type: TokenType.COLON }
+  | { type: TokenType.COMMA }
+  | { type: TokenType.BAR }
+  | { type: TokenType.I8 }
+  | { type: TokenType.I16 }
+  | { type: TokenType.I32 }
+  | { type: TokenType.I64 }
+  | { type: TokenType.ISIZE }
+  | { type: TokenType.U8 }
+  | { type: TokenType.U16 }
+  | { type: TokenType.U32 }
+  | { type: TokenType.U64 }
+  | { type: TokenType.USIZE }
+  | { type: TokenType.F32 }
+  | { type: TokenType.F64 }
+  | { type: TokenType.CHAR }
+  | { type: TokenType.STRING }
+  | { type: TokenType.BOOL }
+  | { type: TokenType.FALSE }
+  | { type: TokenType.TRUE }
+  | { type: TokenType.NAN }
+  | { type: TokenType.INFINITY }
+  | { type: TokenType.AS }
+  | { type: TokenType.LET }
+  | { type: TokenType.CONST }
+  | { type: TokenType.IF }
+  | { type: TokenType.ELSE }
+  | { type: TokenType.MATCH }
+  | { type: TokenType.FOR }
+  | { type: TokenType.OF }
+  | { type: TokenType.IN }
+  | { type: TokenType.FN }
+  | { type: TokenType.RETURN }
+  | { type: TokenType.ENUM }
+  | { type: TokenType.STRUCT }
+  | { type: TokenType.SELF }
+  | { type: TokenType.ASYNC }
+  | { type: TokenType.AWAIT }
+  | { type: TokenType.TRY }
+  | { type: TokenType.CATCH }
+  | { type: TokenType.IDENTIFIER; value: string }
+  | { type: TokenType.UNKNOWN; value: string }
+  | { type: TokenType.EOL }
+  | { type: TokenType.EOF }

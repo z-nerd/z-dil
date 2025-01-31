@@ -1,4 +1,5 @@
-import { Lexer } from "."
+import { Lexer } from "./lexer"
+import { TokenType } from "./tokens"
 import { isDigit } from "./utils"
 
 export const Numbers = (l: Lexer) => {
@@ -10,7 +11,7 @@ export const Numbers = (l: Lexer) => {
       l.pos++
     }
 
-    l.addToken({ type: "NUMBER", value: parseFloat(value) })
+    l.addToken({ type: TokenType.NUMBER, value: parseFloat(value) })
     return true
   }
   return false

@@ -1,4 +1,5 @@
-import { Lexer } from "."
+import { Lexer } from "./lexer"
+import { TokenType } from "./tokens"
 
 export const SingleLineComments = (l: Lexer) => {
   if (l.char() === "/" && l.peek() === "/") {
@@ -7,7 +8,7 @@ export const SingleLineComments = (l: Lexer) => {
       value += l.char()
       l.pos++
     }
-    l.addToken({ type: "COMMENT", value })
+    l.addToken({ type: TokenType.COMMENT, value })
     return true
   }
 
@@ -29,7 +30,7 @@ export const MultiLineComments = (l: Lexer) => {
       l.pos++
       value += l.char() // Add the closing slash
     }
-    l.addToken({ type: "COMMENT", value })
+    l.addToken({ type: TokenType.COMMENT, value })
     l.pos++ // Skip the closing comment marker
     return true
   }

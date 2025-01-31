@@ -1,4 +1,4 @@
-import { Lexer } from "./lexer"
+import { Lexer } from "./lexer/lexer"
 
 const scanner = Lexer.getInstance()
 
@@ -47,6 +47,8 @@ fn add(x: i8, y:i8): i8 => {
   return x + y;
 }`
 
+const str8 = `const name:String[]= ["zero", "naruto"]`
+
 // const tokens = scanner.tokenize(str7)
 // console.log(tokens)
 
@@ -57,3 +59,4 @@ console.log(scanner.tokenize(str3))
 // console.log(scanner.tokenize(str5))
 // console.log(scanner.tokenize(str6))
 console.log(scanner.tokenize(str7))
+console.log(scanner.tokenize(str8))

@@ -1,117 +1,20 @@
-import { Lexer } from "."
+import { Lexer } from "./lexer"
+import { TOKEN_CHARS, TokenType } from "./tokens"
 
 export const Assign = (l: Lexer) => {
   if (l.char() === "=") {
-    l.addToken({ type: "ASSIGN" })
+    l.addToken({ type: TokenType.ASSIGN })
     l.pos++ // Skip the =
     return true
   }
   return false
 }
 
-export const Multiply = (l: Lexer) => {
-  if (l.char() === "*") {
-    l.addToken({ type: "MULTIPLY" })
-    l.pos++ // Skip the *
-    return true
-  }
-  return false
-}
-
-export const Divide = (l: Lexer) => {
-  if (l.char() === "/") {
-    l.addToken({ type: "DIVIDE" })
-    l.pos++ // Skip the /
-    return true
-  }
-  return false
-}
-
-export const Plus = (l: Lexer) => {
-  if (l.char() === "+") {
-    l.addToken({ type: "PLUS" })
-    l.pos++ // Skip the +
-    return true
-  }
-  return false
-}
-
-export const Minus = (l: Lexer) => {
-  if (l.char() === "-") {
-    l.addToken({ type: "MINUS" })
-    l.pos++ // Skip the -
-    return true
-  }
-  return false
-}
-
-export const OpenParen = (l: Lexer) => {
-  if (l.char() === "(") {
-    l.addToken({ type: "OPEN_PARENTHESIS" })
-    l.pos++ // Skip the (
-    return true
-  }
-  return false
-}
-
-export const CloseParen = (l: Lexer) => {
-  if (l.char() === ")") {
-    l.addToken({ type: "CLOSE_PARENTHESIS" })
-    l.pos++ // Skip the )
-    return true
-  }
-  return false
-}
-
-export const OpenBrace = (l: Lexer) => {
-  if (l.char() === "{") {
-    l.addToken({ type: "OPEN_BRACE" })
-    l.pos++ // Skip the {
-    return true
-  }
-  return false
-}
-
-export const CloseBrace = (l: Lexer) => {
-  if (l.char() === "}") {
-    l.addToken({ type: "CLOSE_BRACE" })
-    l.pos++ // Skip the }
-    return true
-  }
-  return false
-}
-
-export const Semicolon = (l: Lexer) => {
-  if (l.char() === ";") {
-    l.addToken({ type: "SEMICOLON" })
-    l.pos++ // Skip the ;
-    return true
-  }
-  return false
-}
-
-export const Comma = (l: Lexer) => {
-  if (l.char() === ",") {
-    l.addToken({ type: "SEMICOLON" })
-    l.pos++ // Skip the ,
-    return true
-  }
-  return false
-}
-
-export const TowDots = (l: Lexer) => {
-  if (l.char() === ":") {
-    l.addToken({ type: "TYPE_ANNOTATION" })
-    l.pos++ // Skip the :
-    return true
-  }
-  return false
-}
-
-export const GreaterThan = (l: Lexer) => {
-  if (l.char() === ">") {
-    l.addToken({ type: "GREATER_THAN" })
-    l.pos++ // Skip the >
+export const TokenChars = (l: Lexer) => {
+  const char = TOKEN_CHARS[l.char()]
+  if (char) {
+    l.addToken({ type: char as any })
+    l.pos++ // Skip the =
     return true
   }
   return false
@@ -119,17 +22,8 @@ export const GreaterThan = (l: Lexer) => {
 
 export const GreaterThanEqal = (l: Lexer) => {
   if (l.char() === ">" && l.peek() === "=") {
-    l.addToken({ type: "GREATER_THAN_EQAL" })
+    l.addToken({ type: TokenType.GREATER_THAN_EQAL })
     l.pos += 2 // Skip the >=
-    return true
-  }
-  return false
-}
-
-export const LessThan = (l: Lexer) => {
-  if (l.char() === "<") {
-    l.addToken({ type: "LESS_THAN" })
-    l.pos++ // Skip the <
     return true
   }
   return false
@@ -137,7 +31,7 @@ export const LessThan = (l: Lexer) => {
 
 export const LessThanEqal = (l: Lexer) => {
   if (l.char() === "<" && l.peek() === "=") {
-    l.addToken({ type: "LESS_THAN_EQAL" })
+    l.addToken({ type: TokenType.LESS_THAN_EQAL })
     l.pos += 2 // Skip the <=
     return true
   }
@@ -146,7 +40,7 @@ export const LessThanEqal = (l: Lexer) => {
 
 export const Eqal = (l: Lexer) => {
   if (l.char() === "=" && l.peek() === "=") {
-    l.addToken({ type: "EQAL" })
+    l.addToken({ type: TokenType.EQAL })
     l.pos += 2 // Skip the ==
     return true
   }
@@ -155,7 +49,7 @@ export const Eqal = (l: Lexer) => {
 
 export const NotEqal = (l: Lexer) => {
   if (l.char() === "!" && l.peek() === "=") {
-    l.addToken({ type: "NOT_EQAL" })
+    l.addToken({ type: TokenType.NOT_EQAL })
     l.pos += 2 // Skip the !=
     return true
   }
@@ -164,7 +58,7 @@ export const NotEqal = (l: Lexer) => {
 
 export const ArrowFunction = (l: Lexer) => {
   if (l.char() === "=" && l.peek() === ">") {
-    l.addToken({ type: "ARROW_FUNCTION" })
+    l.addToken({ type: TokenType.ARROW_FUNCTION })
     l.pos += 2 // Skip the =>
     return true
   }

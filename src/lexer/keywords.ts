@@ -1,4 +1,5 @@
-import { Lexer } from "."
+import { Lexer } from "./lexer"
+import { KEYWORDS, TokenType } from "./tokens"
 import { isAlpabit, isAlpabitNumeric } from "./utils"
 
 export const Keywords = (l: Lexer) => {
@@ -10,16 +11,9 @@ export const Keywords = (l: Lexer) => {
       l.pos++
     }
 
-    switch (value) {
-      case "return": {
-        l.addToken({ type: "RETURN", value })
-        break
-      }
-      default: {
-        l.addToken({ type: "IDENTIFIER", value })
-        break
-      }
-    }
+    const reserved = KEYWORDS[value]
+    if (reserved) l.addToken({ type: reserved as any })
+    else l.addToken({ type: TokenType.IDENTIFIER, value })
 
     return true
   }

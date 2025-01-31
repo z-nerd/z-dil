@@ -1,4 +1,5 @@
-import { Lexer } from "."
+import { Lexer } from "./lexer"
+import { TokenType } from "./tokens"
 
 export const BacktickLiterals = (l: Lexer) => {
   // Match backtick literals
@@ -10,7 +11,7 @@ export const BacktickLiterals = (l: Lexer) => {
       l.pos++
     }
     l.pos++ // Skip the closing backtick
-    l.addToken({ type: "BACKTICK", value })
+    l.addToken({ type: TokenType.BACKTICK, value })
     return true
   }
 
@@ -27,7 +28,7 @@ export const DubleQuteLiterals = (l: Lexer) => {
       l.pos++
     }
     l.pos++ // Skip the closing double quote
-    l.addToken({ type: "DOUBLE_QUOTE", value })
+    l.addToken({ type: TokenType.DOUBLE_QUOTE, value })
     return true
   }
 
@@ -45,7 +46,7 @@ export const SingleQuteLiterals = (l: Lexer) => {
     }
     l.pos++ // Skip the closing single quote
 
-    l.addToken({ type: "SINGLE_QUOTE", value })
+    l.addToken({ type: TokenType.SINGLE_QUOTE, value })
     return true
   }
 

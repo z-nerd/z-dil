@@ -3,24 +3,12 @@ import { Keywords } from "./keywords"
 import { Numbers } from "./numbers"
 import {
   ArrowFunction,
-  CloseBrace,
-  CloseParen,
-  Comma,
-  Divide,
   Assign,
-  Minus,
-  Multiply,
-  OpenBrace,
-  OpenParen,
-  Plus,
-  Semicolon,
-  TowDots,
   Eqal,
   NotEqal,
   LessThanEqal,
-  LessThan,
-  GreaterThan,
   GreaterThanEqal,
+  TokenChars,
 } from "./operators"
 import { Space } from "./space"
 import {
@@ -28,7 +16,7 @@ import {
   DubleQuteLiterals,
   SingleQuteLiterals,
 } from "./string"
-import { Token } from "./tokens"
+import { Token, TokenType } from "./tokens"
 
 export class Lexer {
   #tokens: Token[]
@@ -86,41 +74,27 @@ export class Lexer {
       if (DubleQuteLiterals(this)) continue
       if (SingleQuteLiterals(this)) continue
 
-      if (ArrowFunction(this)) continue
-
       if (Numbers(this)) continue
 
-      if (OpenParen(this)) continue
-      if (CloseParen(this)) continue
-
-      if (OpenBrace(this)) continue
-      if (CloseBrace(this)) continue
+      if (ArrowFunction(this)) continue
 
       if (Eqal(this)) continue
       if (NotEqal(this)) continue
-      if (LessThan(this)) continue
       if (LessThanEqal(this)) continue
-      if (GreaterThan(this)) continue
       if (GreaterThanEqal(this)) continue
 
       if (Assign(this)) continue
-      if (Multiply(this)) continue
-      if (Divide(this)) continue
-      if (Plus(this)) continue
-      if (Minus(this)) continue
 
-      if (TowDots(this)) continue
-      if (Semicolon(this)) continue
-      if (Comma(this)) continue
+      if (TokenChars(this)) continue
 
       if (Keywords(this)) continue
 
       // Unknown character
-      this.addToken({ type: "UNKNOWN", value: this.char() })
+      this.addToken({ type: TokenType.UNKNOWN, value: this.char() })
       this.pos++
     }
 
-    this.addToken({ type: "EOF" })
+    this.addToken({ type: TokenType.EOF })
 
     return this.#tokens
   }
