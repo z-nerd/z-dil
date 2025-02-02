@@ -3,7 +3,7 @@ import { TOKEN_CHARS, TokenType } from "./tokens"
 
 export const Assign = (l: Lexer) => {
   if (l.char() === "=") {
-    l.addToken({ type: TokenType.ASSIGN })
+    l.addToken({ type: TokenType.ASSIGN, value: l.char() })
     l.pos++ // Skip the =
     return true
   }
@@ -13,7 +13,7 @@ export const Assign = (l: Lexer) => {
 export const TokenChars = (l: Lexer) => {
   const char = TOKEN_CHARS[l.char()]
   if (char) {
-    l.addToken({ type: char as any })
+    l.addToken({ type: char as any, value: l.char() })
     l.pos++ // Skip the =
     return true
   }
@@ -22,7 +22,7 @@ export const TokenChars = (l: Lexer) => {
 
 export const GreaterThanEqal = (l: Lexer) => {
   if (l.char() === ">" && l.peek() === "=") {
-    l.addToken({ type: TokenType.GREATER_THAN_EQAL })
+    l.addToken({ type: TokenType.GREATER_THAN_EQAL, value: ">=" })
     l.pos += 2 // Skip the >=
     return true
   }
@@ -31,7 +31,7 @@ export const GreaterThanEqal = (l: Lexer) => {
 
 export const LessThanEqal = (l: Lexer) => {
   if (l.char() === "<" && l.peek() === "=") {
-    l.addToken({ type: TokenType.LESS_THAN_EQAL })
+    l.addToken({ type: TokenType.LESS_THAN_EQAL, value: "<=" })
     l.pos += 2 // Skip the <=
     return true
   }
@@ -40,7 +40,7 @@ export const LessThanEqal = (l: Lexer) => {
 
 export const Eqal = (l: Lexer) => {
   if (l.char() === "=" && l.peek() === "=") {
-    l.addToken({ type: TokenType.EQAL })
+    l.addToken({ type: TokenType.EQAL, value: "==" })
     l.pos += 2 // Skip the ==
     return true
   }
@@ -49,7 +49,7 @@ export const Eqal = (l: Lexer) => {
 
 export const NotEqal = (l: Lexer) => {
   if (l.char() === "!" && l.peek() === "=") {
-    l.addToken({ type: TokenType.NOT_EQAL })
+    l.addToken({ type: TokenType.NOT_EQAL, value: "!=" })
     l.pos += 2 // Skip the !=
     return true
   }
@@ -58,7 +58,7 @@ export const NotEqal = (l: Lexer) => {
 
 export const ArrowFunction = (l: Lexer) => {
   if (l.char() === "=" && l.peek() === ">") {
-    l.addToken({ type: TokenType.ARROW_FUNCTION })
+    l.addToken({ type: TokenType.ARROW_FUNCTION, value: "=>" })
     l.pos += 2 // Skip the =>
     return true
   }

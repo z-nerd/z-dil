@@ -1,134 +1,147 @@
 export type NodeType =
+  // STATEMENTS
   | "Program"
   | "ExpressionStatement"
-  | "BinaryExpression"
-  | "AssignmentExpression"
-  | "ArrowFunctionExpression"
-  | "NumericLiteral"
-  | "VariableDeclaration"
-  | "VariableDeclarator"
-  | "FunctionDeclaration"
-  | "CallExpression"
-  | "Identifier"
   | "BlockStatement"
+  | "VariableDeclaration"
+  | "FunctionDeclaration"
   | "ReturnStatement"
   | "IfStatement"
-  | "Literal"
+  | "ForStatement"
+  | "TryCatchStatement"
+
+  // EXPRESSIONS
+  | "AssignmentExpression"
+  | "BinaryExpression"
   | "MemberExpression"
-  | "ObjectExpression"
+  | "CallExpression"
+
+  // LITERALS
   | "Property"
-  | "TypeAnnotation"
+  | "ArrayLiteral"
+  | "NumericLiteral"
+  | "Identifier"
+  | "StringLiteral"
 
-export interface Node {
+  // Others
+  | "Identifier"
+  | "VariableDeclarator"
+
+export interface Statement {
   type: NodeType
+  start: number
+  end: number
 }
 
-export interface Program extends Node {
+export interface Program extends Statement {
   type: "Program"
-  body: Node[]
+  body: Statement[]
+  sourceType: string
 }
 
-export interface ExpressionStatement extends Node {
-  type: "ExpressionStatement"
-  expression: Node
-}
+export interface Expression extends Statement {}
 
-export interface BinaryExpression extends Node {
+export interface BinaryExpression extends Expression {
   type: "BinaryExpression"
   operator: string
-  left: Node
-  right: Node
+  left: Expression
+  right: Expression
 }
 
-export interface AssignmentExpression extends Node {
-  type: "AssignmentExpression"
-  operator: string
-  left: Node
-  right: Node
-}
-
-export interface ArrowFunctionExpression extends Node {
-  type: "ArrowFunctionExpression"
-  params: Identifier[]
-  body: BlockStatement | ExpressionStatement
-}
-
-export interface NumericLiteral extends Node {
+export interface NumericLiteral extends Expression {
   type: "NumericLiteral"
   value: number
 }
 
-export interface VariableDeclaration extends Node {
+export interface Identifier extends Expression {
+  type: "Identifier"
+  name: string
+}
+
+export interface AssignmentExpression extends Expression {
+  type: "AssignmentExpression"
+  operator: string
+  left: Statement
+  right: Statement
+}
+
+// export interface ArrowFunctionExpression extends Node {
+//   type: "ArrowFunctionExpression"
+//   params: Identifier[]
+//   body: BlockStatement | ExpressionStatement
+// }
+
+export interface VariableDeclaration extends Statement {
   type: "VariableDeclaration"
   declarations: VariableDeclarator[]
   kind: "let" | "const"
 }
 
-export interface VariableDeclarator extends Node {
+export interface VariableDeclarator extends Statement {
   type: "VariableDeclarator"
   id: Identifier
-  init: Node | null
+  init: Statement | null
 }
 
-export interface FunctionDeclaration extends Node {
+export interface FunctionDeclaration extends Statement {
   type: "FunctionDeclaration"
   id: Identifier
   params: Identifier[]
   body: BlockStatement
 }
 
-export interface CallExpression extends Node {
+export interface CallExpression extends Expression {
   type: "CallExpression"
-  callee: Node
-  arguments: Node[]
+  callee: Statement
+  arguments: Statement[]
 }
 
-export interface Identifier extends Node {
-  type: "Identifier"
-  name: string
-}
-
-export interface BlockStatement extends Node {
+export interface BlockStatement extends Statement {
   type: "BlockStatement"
-  body: Node[]
+  body: Statement[]
 }
 
-export interface ReturnStatement extends Node {
+export interface ReturnStatement extends Statement {
   type: "ReturnStatement"
-  argument: Node | null
+  argument: Statement | null
 }
 
-export interface IfStatement extends Node {
+export interface IfStatement extends Statement {
   type: "IfStatement"
-  test: Node
+  test: Statement
   consequent: BlockStatement
   alternate: BlockStatement | null
 }
 
-export interface Literal extends Node {
-  type: "Literal"
-  value: string | number | boolean | null
-}
+// export interface Literal extends Node {
+//   type: "Literal"
+//   value: string | number | boolean | null
+// }
 
-export interface MemberExpression extends Node {
+export interface MemberExpression extends Expression {
   type: "MemberExpression"
-  object: Node
-  property: Node
+  object: Statement
+  property: Statement
   computed: boolean
 }
 
-export interface ObjectExpression extends Node {
-  type: "ObjectExpression"
-  properties: Property[]
-}
+// export interface ObjectExpression extends Node {
+//   type: "ObjectExpression"
+//   properties: Property[]
+// }
 
-export interface Property extends Node {
+export interface Property extends Statement {
   type: "Property"
   key: Identifier
-  value: Node
+  value: Statement
 }
 
-export interface TypeAnnotation extends Node {
-  type: "TypeAnnotation"
-  typeAnnotation: string
+export interface ArrayLiteral extends Statement {
+  kind: "ArrayLiteral"
+  values: Statement[]
 }
+
+// export interface TypeAnnotation extends Node {
+//   type: "TypeAnnotation"
+//   typeAnnotation: string
+// }

@@ -37,7 +37,7 @@ export class Lexer {
 
   private constructor() {
     if (Lexer.#instance) {
-      throw new Error("Use Scanner.getInstance() to get the instance.")
+      throw new Error("Use Lexer.getInstance() to get the instance.")
     }
     this.#tokens = []
     this.pos = 0
@@ -94,7 +94,7 @@ export class Lexer {
       this.pos++
     }
 
-    this.addToken({ type: TokenType.EOF })
+    this.addToken({ type: TokenType.EOF, value: "EOF" })
 
     return this.#tokens
   }

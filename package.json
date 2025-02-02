@@ -16,6 +16,7 @@
     "@rollup/plugin-node-resolve": "^16.0.0",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^12.1.2",
+    "@types/node": "^22.13.0",
     "@z-code/vite-plugin-swc": "^0.5.2",
     "concurrently": "^9.1.2",
     "nodemon": "^3.1.9",

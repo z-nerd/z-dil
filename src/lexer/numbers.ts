@@ -6,12 +6,12 @@ export const Numbers = (l: Lexer) => {
   // Match numbers
   if (isDigit(l.char())) {
     let value = ""
-    while (isDigit(l.char())) {
+    while (l.isEOF() && isDigit(l.char())) {
       value += l.char()
       l.pos++
     }
 
-    l.addToken({ type: TokenType.NUMBER, value: parseFloat(value) })
+    l.addToken({ type: TokenType.NUMBER, value: value })
     return true
   }
   return false
